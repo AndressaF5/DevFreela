@@ -6,10 +6,8 @@ namespace DevFreela.Api.Controllers
 {
     [Route("api/projects")]
     [ApiController]
-    public class ProjectsController(IOptions<FreelanceTotalCostConfig> options) : ControllerBase
+    public class ProjectsController() : ControllerBase
     {
-        private readonly FreelanceTotalCostConfig _config = options.Value;
-
         [HttpGet]
         public IActionResult Get(string search)
         {
@@ -25,11 +23,6 @@ namespace DevFreela.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] CreateProjectInputModel model)
         {
-            if (model.TotalCost < _config.Minimum || model.TotalCost > _config.Maximum)
-            {
-                return BadRequest("Número fora dos limites.");
-            }
-
             return CreatedAtAction(nameof(GetById), new { id = 1 }, model);
         }
 
