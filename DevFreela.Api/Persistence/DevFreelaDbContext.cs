@@ -63,7 +63,7 @@ namespace DevFreela.Api.Persistence
 
                 e.HasOne(p => p.Client)
                     .WithMany(c => c.OwnedProjects)
-                    .HasForeignKey(p => p.Client)
+                    .HasForeignKey(p => p.IdClient)
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
