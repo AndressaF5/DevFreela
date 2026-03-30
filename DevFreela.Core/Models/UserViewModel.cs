@@ -1,6 +1,6 @@
-﻿using DevFreela.Api.Entities;
+﻿using DevFreela.Core.Entities;
 
-namespace DevFreela.Api.Models
+namespace DevFreela.Core.Models
 {
     public class UserViewModel
     {

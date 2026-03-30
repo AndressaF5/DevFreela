@@ -1,4 +1,4 @@
-﻿namespace DevFreela.Api.Entities
+﻿namespace DevFreela.Core.Entities
 {
     public class ProjectComment : BaseEntity
     {

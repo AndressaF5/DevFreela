@@ -1,7 +1,7 @@
-﻿using DevFreela.Api.Entities;
+﻿using DevFreela.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevFreela.Api.Persistence
+namespace DevFreela.Infrastructure.Persistence
 {
     public class DevFreelaDbContext : DbContext
     {

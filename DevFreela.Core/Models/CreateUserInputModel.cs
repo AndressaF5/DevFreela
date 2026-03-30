@@ -1,4 +1,4 @@
-﻿namespace DevFreela.Api.Models
+﻿namespace DevFreela.Core.Models
 {
     public class CreateUserInputModel
     {
