@@ -37,7 +37,7 @@ namespace DevFreela.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] CreateProjectInputModel model)
+        public IActionResult Post(CreateProjectInputModel model)
         {
             var result = _projectService.Insert(model);
 
@@ -49,7 +49,7 @@ namespace DevFreela.Api.Controllers
         {
             var result = _projectService.Update(model);
 
-            if (result == null)
+            if (!result.IsSuccess)
             {
                 return BadRequest(result.Message);
             }
@@ -62,7 +62,7 @@ namespace DevFreela.Api.Controllers
         {
             var result = _projectService.Delete(id);
 
-            if (result == null)
+            if (!result.IsSuccess)
             {
                 return BadRequest(result.Message);
             }
@@ -75,7 +75,7 @@ namespace DevFreela.Api.Controllers
         {
             var result = _projectService.Start(id);
 
-            if (result == null)
+            if (!result.IsSuccess)
             {
                 return BadRequest(result.Message);
             }
@@ -88,7 +88,7 @@ namespace DevFreela.Api.Controllers
         {
             var result = _projectService.Complete(id);
 
-            if (result == null)
+            if (!result.IsSuccess)
             {
                 return BadRequest(result.Message);
             }
