@@ -1,4 +1,4 @@
-﻿namespace DevFreela.Core.Models
+﻿namespace DevFreela.Application.Models
 {
     public class CreateSkillInputModel
     {
