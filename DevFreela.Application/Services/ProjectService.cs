@@ -24,7 +24,7 @@ namespace DevFreela.Application.Services
 
             var model = projects.Select(p => ProjectItemViewModel.FromEntity(p)).ToList();
 
-            return ResultViewModel<List<ProjectItemViewModel>>.Sucess(model);
+            return ResultViewModel<List<ProjectItemViewModel>>.Success(model);
         }
 
         public ResultViewModel<ProjectViewModel> GetById(int id)
@@ -42,7 +42,7 @@ namespace DevFreela.Application.Services
 
             var model = ProjectViewModel.FromEntity(project);
 
-            return ResultViewModel<ProjectViewModel>.Sucess(model);
+            return ResultViewModel<ProjectViewModel>.Success(model);
         }
 
         public ResultViewModel<int> Insert(CreateProjectInputModel model)
@@ -52,7 +52,7 @@ namespace DevFreela.Application.Services
             _context.Projects.Add(project);
             _context.SaveChanges();
 
-            return ResultViewModel<int>.Sucess(project.Id);
+            return ResultViewModel<int>.Success(project.Id);
         }
 
         public ResultViewModel Update(UpdateProjectInputModel model)
@@ -69,7 +69,7 @@ namespace DevFreela.Application.Services
             _context.Projects.Update(project);
             _context.SaveChanges();
 
-            return ResultViewModel.Sucess();
+            return ResultViewModel.Success();
         }
 
         public ResultViewModel Delete(int id)
@@ -85,7 +85,7 @@ namespace DevFreela.Application.Services
             _context.Projects.Update(project);
             _context.SaveChanges();
 
-            return ResultViewModel.Sucess();
+            return ResultViewModel.Success();
         }
 
         public ResultViewModel Start(int id)
@@ -101,7 +101,7 @@ namespace DevFreela.Application.Services
             _context.Projects.Update(project);
             _context.SaveChanges();
 
-            return ResultViewModel.Sucess();
+            return ResultViewModel.Success();
         }
 
         public ResultViewModel Complete(int id)
@@ -117,7 +117,7 @@ namespace DevFreela.Application.Services
             _context.Projects.Update(project);
             _context.SaveChanges();
 
-            return ResultViewModel.Sucess();
+            return ResultViewModel.Success();
         }
 
         public ResultViewModel InsertComment(int id, CreateProjectCommentInputModel model)
@@ -134,7 +134,7 @@ namespace DevFreela.Application.Services
             _context.ProjectComments.Add(comment);
             _context.SaveChanges();
 
-            return ResultViewModel.Sucess();
+            return ResultViewModel.Success();
         }
     }
 }

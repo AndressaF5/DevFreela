@@ -11,7 +11,7 @@
         public bool IsSuccess { get; private set; }
         public string Message { get; private set; }
 
-        public static ResultViewModel Sucess()
+        public static ResultViewModel Success()
         {
             return new ResultViewModel();
         }
@@ -32,7 +32,7 @@
 
         public T? Data { get; private set; }
 
-        public static ResultViewModel<T> Sucess(T data)
+        public static ResultViewModel<T> Success(T data)
         {
             return new ResultViewModel<T>(data);
         }
