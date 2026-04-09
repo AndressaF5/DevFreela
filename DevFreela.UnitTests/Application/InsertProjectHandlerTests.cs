@@ -1,10 +1,8 @@
-﻿
-using DevFreela.Application.Commands.InsertComment;
-using DevFreela.Application.Commands.InsertProject;
-using DevFreela.Application.Notification.ProjectCreated;
+﻿using DevFreela.Application.Commands.InsertProject;
 using DevFreela.Core.Entities;
 using DevFreela.Core.Repositories;
 using MediatR;
+using Moq;
 using NSubstitute;
 
 namespace DevFreela.UnitTests.Application
@@ -42,6 +40,43 @@ namespace DevFreela.UnitTests.Application
             Assert.Equal(ID, result.Data);
             await repository.Received(1).Add(Arg.Any<Project>());
             //await mediator.Received(1).Publish(Arg.Any<object>());
+        }
+
+        [Fact]
+        public async Task InputDataAreOk_Insert_Success_Moq()
+        {
+            // Arrange
+            const int ID = 1;
+
+            //var mock = new Mock<IProjectRepository>();
+            //mock.Setup(r => r.Add(It.IsAny<Project>())).ReturnsAsync(ID);
+
+            var repository = Mock.Of<IProjectRepository>(r => r.Add(It.IsAny<Project>()) == Task.FromResult(ID));
+
+            var mediator = Mock.Of<IMediator>();
+
+            var command = new InsertProjectCommand
+            {
+                Title = "Project A",
+                Description = "Descrição do projeto",
+                TotalCost = 20000,
+                IdClient = 1,
+                IdFreelancer = 2
+            };
+
+            var handler = new InsertProjectHandler(repository, mediator);
+            //var handler = new InsertProjectHandler(mock.Object, mediator);
+
+            // Act
+            var result = await handler.Handle(command, new CancellationToken());
+
+            // Assert
+            Assert.True(result.IsSuccess);
+            Assert.Equal(ID, result.Data);
+
+            //mock.Verify(m => m.Add(It.IsAny<Project>()), Times.Once);
+
+            Mock.Get(repository).Verify(m => m.Add(It.IsAny<Project>()), Times.Once);
         }
     }
 }
