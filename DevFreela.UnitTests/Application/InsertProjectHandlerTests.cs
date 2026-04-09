@@ -1,6 +1,7 @@
 ﻿using DevFreela.Application.Commands.InsertProject;
 using DevFreela.Core.Entities;
 using DevFreela.Core.Repositories;
+using DevFreela.UnitTests.Fakes;
 using FluentAssertions;
 using MediatR;
 using Moq;
@@ -22,14 +23,16 @@ namespace DevFreela.UnitTests.Application
             var mediator = Substitute.For<IMediator>();
             //mediator.Publish(Arg.Any<object>()).Returns(Task.CompletedTask);
 
-            var command = new InsertProjectCommand
-            {
-                Title = "Project A",
-                Description = "Descrição do projeto",
-                TotalCost = 20000,
-                IdClient = 1,
-                IdFreelancer = 2
-            };
+            //var command = new InsertProjectCommand
+            //{
+            //    Title = "Project A",
+            //    Description = "Descrição do projeto",
+            //    TotalCost = 20000,
+            //    IdClient = 1,
+            //    IdFreelancer = 2
+            //};
+
+            var command = FakeDataHelper.CreateFakerInsertProjectCommand();
 
             var handler = new InsertProjectHandler(repository, mediator);
 
@@ -60,14 +63,16 @@ namespace DevFreela.UnitTests.Application
 
             var mediator = Mock.Of<IMediator>();
 
-            var command = new InsertProjectCommand
-            {
-                Title = "Project A",
-                Description = "Descrição do projeto",
-                TotalCost = 20000,
-                IdClient = 1,
-                IdFreelancer = 2
-            };
+            //var command = new InsertProjectCommand
+            //{
+            //    Title = "Project A",
+            //    Description = "Descrição do projeto",
+            //    TotalCost = 20000,
+            //    IdClient = 1,
+            //    IdFreelancer = 2
+            //};
+
+            var command = FakeDataHelper.CreateFakerInsertProjectCommand();
 
             var handler = new InsertProjectHandler(repository, mediator);
             //var handler = new InsertProjectHandler(mock.Object, mediator);

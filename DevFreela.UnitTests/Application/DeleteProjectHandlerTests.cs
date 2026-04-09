@@ -1,6 +1,7 @@
 ﻿using DevFreela.Application.Commands.DeleteProject;
 using DevFreela.Core.Entities;
 using DevFreela.Core.Repositories;
+using DevFreela.UnitTests.Fakes;
 using FluentAssertions;
 using Moq;
 using NSubstitute;
@@ -13,7 +14,9 @@ namespace DevFreela.UnitTests.Application
         public async Task ProjectExists_Delete_Success_NSubstitute()
         {
             // Arrange
-            var project = new Project("Projeto A", "Descrição do Projeto", 1, 2, 10000);
+            //var project = new Project("Projeto A", "Descrição do Projeto", 1, 2, 10000);
+
+            var project = FakeDataHelper.CreateFakeProject();
 
             var repository = Substitute.For<IProjectRepository>();
             repository.GetById(1).Returns(Task.FromResult((Project?)project));
@@ -38,7 +41,9 @@ namespace DevFreela.UnitTests.Application
         public async Task ProjectDoesNotExists_Delete_Error_NSubstitute()
         {
             // Arrange
-            var project = new Project("Projeto A", "Descrição do Projeto", 1, 2, 10000);
+            //var project = new Project("Projeto A", "Descrição do Projeto", 1, 2, 10000);
+
+            var project = FakeDataHelper.CreateFakeProject();
 
             var repository = Substitute.For<IProjectRepository>();
             repository.GetById(Arg.Any<int>()).Returns(Task.FromResult((Project?)null));
@@ -52,7 +57,7 @@ namespace DevFreela.UnitTests.Application
 
             // Assert
             Assert.False(result.IsSuccess);
-            result.IsSuccess.Should().BeTrue(); // Usando FluentValidation
+            result.IsSuccess.Should().BeFalse(); // Usando FluentValidation
 
             Assert.Equal(DeleteProjectHandler.PROJECT_NOT_FOUND_MESSAGE, result.Message);
             result.Message.Should().Be(DeleteProjectHandler.PROJECT_NOT_FOUND_MESSAGE); // Usando FluentValidation
@@ -65,7 +70,9 @@ namespace DevFreela.UnitTests.Application
         public async Task ProjectExists_Delete_Success_Moq()
         {
             // Arrange
-            var project = new Project("Projeto A", "Descrição do Projeto", 1, 2, 10000);
+            //var project = new Project("Projeto A", "Descrição do Projeto", 1, 2, 10000);
+
+            var project = FakeDataHelper.CreateFakeProject();
 
             var repository = Mock.Of<IProjectRepository>(p => p.GetById(It.IsAny<int>()) == Task.FromResult(project) &&
                 p.Update(It.IsAny<Project>()) == Task.CompletedTask);
@@ -89,7 +96,9 @@ namespace DevFreela.UnitTests.Application
         public async Task ProjectDoesNotExists_Delete_Error_Moq()
         {
             // Arrange
-            var project = new Project("Projeto A", "Descrição do Projeto", 1, 2, 10000);
+            //var project = new Project("Projeto A", "Descrição do Projeto", 1, 2, 10000);
+
+            var project = FakeDataHelper.CreateFakeProject();
 
             var repository = Mock.Of<IProjectRepository>(p => 
                 p.GetById(It.IsAny<int>()) == Task.FromResult((Project?) null));
