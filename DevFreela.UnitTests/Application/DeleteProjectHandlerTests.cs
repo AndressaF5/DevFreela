@@ -1,6 +1,7 @@
 ﻿using DevFreela.Application.Commands.DeleteProject;
 using DevFreela.Core.Entities;
 using DevFreela.Core.Repositories;
+using FluentAssertions;
 using Moq;
 using NSubstitute;
 
@@ -27,6 +28,8 @@ namespace DevFreela.UnitTests.Application
 
             // Assert
             Assert.True(result.IsSuccess);
+            result.IsSuccess.Should().BeTrue(); // Usando FluentValidation
+
             await repository.Received(1).GetById(1);
             await repository.Received(1).Update(Arg.Any<Project>());
         }
@@ -49,7 +52,10 @@ namespace DevFreela.UnitTests.Application
 
             // Assert
             Assert.False(result.IsSuccess);
+            result.IsSuccess.Should().BeTrue(); // Usando FluentValidation
+
             Assert.Equal(DeleteProjectHandler.PROJECT_NOT_FOUND_MESSAGE, result.Message);
+            result.Message.Should().Be(DeleteProjectHandler.PROJECT_NOT_FOUND_MESSAGE); // Usando FluentValidation
 
             await repository.Received(1).GetById(Arg.Any<int>());
             await repository.DidNotReceive().Update(Arg.Any<Project>());
@@ -73,6 +79,8 @@ namespace DevFreela.UnitTests.Application
 
             // Assert
             Assert.True(result.IsSuccess);
+            result.IsSuccess.Should().BeTrue(); // Usando FluentValidation
+
             Mock.Get(repository).Verify(r => r.GetById(1), Times.Once());
             Mock.Get(repository).Verify(r => r.Update(It.IsAny<Project>()), Times.Once());
         }
@@ -95,7 +103,10 @@ namespace DevFreela.UnitTests.Application
 
             // Assert
             Assert.False(result.IsSuccess);
+            result.IsSuccess.Should().BeFalse(); // Usando FluentValidation
+
             Assert.Equal(DeleteProjectHandler.PROJECT_NOT_FOUND_MESSAGE, result.Message);
+            result.Message.Should().Be(DeleteProjectHandler.PROJECT_NOT_FOUND_MESSAGE); // Usando FluentValidation
 
             Mock.Get(repository).Verify(r => r.GetById(1), Times.Once);
             Mock.Get(repository).Verify(r => r.Update(It.IsAny<Project>()), Times.Never);

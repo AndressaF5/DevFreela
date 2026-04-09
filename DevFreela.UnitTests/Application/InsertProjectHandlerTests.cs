@@ -1,6 +1,7 @@
 ﻿using DevFreela.Application.Commands.InsertProject;
 using DevFreela.Core.Entities;
 using DevFreela.Core.Repositories;
+using FluentAssertions;
 using MediatR;
 using Moq;
 using NSubstitute;
@@ -37,7 +38,11 @@ namespace DevFreela.UnitTests.Application
 
             // Assert
             Assert.True(result.IsSuccess);
+            result.IsSuccess.Should().BeTrue(); // Usando FluentValidation
+
             Assert.Equal(ID, result.Data);
+            result.Data.Should().Be(ID); // Usando FluentValidation
+
             await repository.Received(1).Add(Arg.Any<Project>());
             //await mediator.Received(1).Publish(Arg.Any<object>());
         }
@@ -72,7 +77,10 @@ namespace DevFreela.UnitTests.Application
 
             // Assert
             Assert.True(result.IsSuccess);
+            result.IsSuccess.Should().BeTrue(); // Usando FluentValidation
+
             Assert.Equal(ID, result.Data);
+            result.Data.Should().Be(ID); // Usando FluentValidation
 
             //mock.Verify(m => m.Add(It.IsAny<Project>()), Times.Once);
 

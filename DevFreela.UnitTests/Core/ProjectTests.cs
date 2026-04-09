@@ -1,5 +1,6 @@
 ﻿using DevFreela.Core.Entities;
 using DevFreela.Core.Enums;
+using FluentAssertions;
 
 namespace DevFreela.UnitTests.Core
 {
@@ -16,7 +17,13 @@ namespace DevFreela.UnitTests.Core
 
             // Assert
             Assert.Equal(ProjectStatusEnum.InProgress, project.Status);
+
+            project.Status.Should().Be(ProjectStatusEnum.InProgress);
+
             Assert.NotNull(project.StartedAt);
+
+            project.StartedAt.Should().BeNull();
+
             Assert.True(project.Status == ProjectStatusEnum.InProgress);
             Assert.False(project.StartedAt is null);
         }
@@ -33,6 +40,10 @@ namespace DevFreela.UnitTests.Core
 
             var exception = Assert.Throws<InvalidOperationException>(start);
             Assert.Equal(Project.INVALID_STATE_MESSAGE, exception.Message);
+
+            start.Should()
+                .Throw<InvalidOperationException>()
+                .WithMessage(Project.INVALID_STATE_MESSAGE);
         }
     }
 }
