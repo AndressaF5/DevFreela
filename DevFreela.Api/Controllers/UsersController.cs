@@ -38,7 +38,7 @@ namespace DevFreela.Api.Controllers
         [HttpPost]
         public IActionResult Post(CreateUserInputModel model)
         {
-            var user = new User(model.FullName, model.Email, model.BithDate);
+            var user = new User(model.FullName, model.Email, model.BithDate, model.Password, model.Role);
 
             _context.Users.Add(user);
             _context.SaveChanges();
