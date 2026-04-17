@@ -27,5 +27,10 @@
         public List<Project> OwnedProjects { get; set; }
         public List<Project> FreelanceProjects { get; set; }
         public List<ProjectComment> Comments { get; private set; }
+        
+        public void UpdatePassword(string password)
+        {
+            Password = password;
+        }
     }
 }
