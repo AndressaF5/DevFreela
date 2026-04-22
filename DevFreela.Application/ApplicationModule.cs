@@ -1,8 +1,12 @@
 ﻿using DevFreela.Application.Commands.InsertProject;
 using DevFreela.Application.Models;
 using DevFreela.Application.Services;
+using DevFreela.Application.Validators;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace DevFreela.Application
 {
@@ -12,7 +16,8 @@ namespace DevFreela.Application
         {
             services
                 .AddServices()
-                .AddHandlers();
+                .AddHandlers()
+                .AddValidators();
 
             return services;
         }
@@ -29,6 +34,15 @@ namespace DevFreela.Application
             services.AddMediatR(config => config.RegisterServicesFromAssemblyContaining<InsertProjectCommand>());
 
             services.AddScoped<IPipelineBehavior<InsertProjectCommand, ResultViewModel<int>>, ValidateInsertProjectCommandBehavior>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddValidators(this IServiceCollection services)
+        {
+            services
+                .AddFluentValidationAutoValidation()
+                .AddValidatorsFromAssemblyContaining<CreateUserValidator>();
 
             return services;
         }
